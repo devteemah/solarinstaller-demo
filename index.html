@@ -875,7 +875,15 @@
     @media (max-width: 720px) {
       :root { --pad: 80px; }
       .wrap { width: min(var(--max), calc(100% - 32px)); }
-      .menu-btn { display: grid; place-items: center; }
+      .nav {
+        position: relative;
+        justify-content: space-between;
+      }
+      .menu-btn {
+        display: grid;
+        place-items: center;
+        margin-left: auto;
+      }
       .nav-links {
         display: none;
         position: absolute;
@@ -892,16 +900,12 @@
       .nav-links.is-open { display: flex; }
       .nav-links a { padding: 10px 0; }
       .nav-phone {
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        justify-content: center;
+        display: none !important;
       }
-      .nav-phone-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
       .config-form, .result { padding: 28px 22px; }
       .wa-fab {
         right: 16px;
-        bottom: max(16px, env(safe-area-inset-bottom));
+        bottom: 16px;
         width: 56px;
         height: 56px;
       }
