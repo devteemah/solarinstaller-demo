@@ -208,12 +208,30 @@
     .nav-links a:hover,
     .nav-links a:focus-visible { color: var(--cyan); }
     .nav-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       text-decoration: none;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
       letter-spacing: 0.02em;
-      color: var(--slate-900);
+      color: var(--white);
       white-space: nowrap;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      padding: 8px 14px;
+      border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(14, 165, 233, 0.22);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .nav-phone i { font-size: 0.78rem; }
+    .nav-phone:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(6, 182, 212, 0.32);
+      color: var(--white);
+    }
+    .nav-phone:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
     }
     .menu-btn {
       display: none;
@@ -788,7 +806,7 @@
       font-size: 0.8rem;
     }
 
-    .wa-fab {
+    .wa-fab#fab-wa {
       position: fixed;
       right: 22px;
       bottom: max(22px, env(safe-area-inset-bottom));
@@ -873,7 +891,13 @@
       }
       .nav-links.is-open { display: flex; }
       .nav-links a { padding: 10px 0; }
-      .nav-phone { display: none; }
+      .nav-phone {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+      }
+      .nav-phone-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
       .config-form, .result { padding: 28px 22px; }
       .wa-fab {
         right: 16px;
@@ -903,7 +927,10 @@
         <a href="#standards">Our Work</a>
         <a href="#faq">Questions</a>
       </nav>
-      <a class="nav-phone" href="tel:+2348000000000">+234 800 000 0000</a>
+      <a class="nav-phone" href="tel:+2347040499985" aria-label="Call now: +234 704 049 9985">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <span class="nav-phone-label">+234 704 049 9985</span>
+      </a>
     </div>
   </header>
 
@@ -1075,9 +1102,9 @@
       <div class="wrap proof-row">
         <div>
           <div class="head" style="margin-bottom: 32px;">
-            <p class="kicker">On the ground</p>
-            <h2 id="std-title">This is the work: Kaduna roofs, not a Lagos brochure.</h2>
-            <p>Ask on WhatsApp for recent job references and photos from your area. We will not invent names on this page.</p>
+            <p class="kicker">Our projects</p>
+            <h2 id="std-title">Take a look at our recent builds.</h2>
+            <p>We don't manage projects from a distant corporate office. Our teams live and build right here in the community, delivering the precise, durable craftsmanship your home deserves.</p>
           </div>
           <div class="shots">
             <div class="shot">
@@ -1171,9 +1198,9 @@
 
   <script>
     (function () {
-      const WHATSAPP_NUMBER = "2348000000000";
-      const PHONE_DISPLAY = "+234 800 000 0000";
-      const PHONE_HREF = "tel:+2348000000000";
+      const WHATSAPP_NUMBER = "2347040499985";
+      const PHONE_DISPLAY = "0704 049 9985";
+      const PHONE_HREF = "tel:+2347040499985";
 
       const architectures = {
         basic: {
@@ -1233,7 +1260,13 @@
 
       document.querySelectorAll(".nav-phone, footer a[href^='tel:']").forEach(function (link) {
         link.setAttribute("href", PHONE_HREF);
-        link.textContent = PHONE_DISPLAY;
+        const label = link.querySelector(".nav-phone-label");
+        if (label) {
+          label.textContent = PHONE_DISPLAY;
+          link.setAttribute("aria-label", "Call now: " + PHONE_DISPLAY);
+        } else {
+          link.textContent = PHONE_DISPLAY;
+        }
       });
 
       const heroWa = document.getElementById("hero-wa");
